@@ -1,6 +1,6 @@
 from aws_cdk import Stack
 from aws_cdk import aws_codecommit as codecommit
-from aws_cdk import pipelines as pipelines
+from aws_cdk import pipelines
 from constructs import Construct
 
 from cdk_workshop.pipeline_stage import WorkshopPipelineStage
@@ -28,7 +28,8 @@ class WorkshopPipelineStack(Stack):
                     # Instructs Codebuild to install required packages
                     "pip install -r requirements.txt",
                     "npx cdk synth",
-                ]
+                ],
+                primary_output_directory="cdk_workshop/cdk.out",
             ),
         )
 
