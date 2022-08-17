@@ -33,5 +33,5 @@ class CdkWorkshopStack(Stack):
         TableViewer(
             self, 'ViewHitCounter',
             title='Hello Hits',
-            table=??????
+            table=hello_with_counter.table,
         )
