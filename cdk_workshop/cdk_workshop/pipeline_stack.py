@@ -3,6 +3,8 @@ from aws_cdk import aws_codecommit as codecommit
 from aws_cdk import pipelines as pipelines
 from constructs import Construct
 
+from cdk_workshop.pipeline_stage import WorkshopPipelineStage
+
 
 class WorkshopPipelineStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
@@ -19,12 +21,15 @@ class WorkshopPipelineStack(Stack):
             synth=pipelines.ShellStep(
                 "Synth",
                 input=pipelines.CodePipelineSource.code_commit(
-                    repo, "master"),
+                    repo, "main"),
                 commands=[
                     "npm install -g aws-cdk",  # Installs the cdk cli on Codebuild
                     # Instructs Codebuild to install required packages
                     "pip install -r requirements.txt",
-                    "cdk synth",
+                    "npx cdk synth",
                 ]
             ),
         )
+
+        deploy = WorkshopPipelineStage(self, "Deploy")
+        deploy_stage = pipeline.add_stage(deploy)
