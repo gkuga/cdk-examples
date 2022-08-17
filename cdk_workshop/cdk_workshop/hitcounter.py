@@ -21,6 +21,7 @@ class HitCounter(Construct):
             self, 'Hits',
             partition_key={'name': 'path',
                            'type': ddb.AttributeType.STRING},
+            encryption=ddb.TableEncryption.AWS_MANAGED,
             removal_policy=RemovalPolicy.DESTROY
         )
 
